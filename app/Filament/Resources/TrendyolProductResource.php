@@ -20,6 +20,10 @@ class TrendyolProductResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?string $navigationLabel = "Trendyol Ürün Listesi";
+
+    protected static ?string $label = "Trendyol Ürünü";
+
     public static function form(Form $form): Form
     {
         return $form
@@ -106,9 +110,7 @@ class TrendyolProductResource extends Resource
     {
         return [
             'index' => Pages\ListTrendyolProducts::route('/'),
-            'create' => Pages\CreateTrendyolProduct::route('/create'),
             'view' => Pages\ViewTrendyolProduct::route('/{record}'),
-            'edit' => Pages\EditTrendyolProduct::route('/{record}/edit'),
         ];
     }
 }

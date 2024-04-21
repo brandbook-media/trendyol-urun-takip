@@ -19,6 +19,10 @@ class TrendyolCategoryResource extends Resource
 {
     protected static ?string $model = TrendyolCategory::class;
 
+    protected static ?string $navigationLabel = "Trendyol Kategorileri";
+
+    protected static ?string $label = "Trendyol Kategorisi";
+
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
@@ -42,7 +46,7 @@ class TrendyolCategoryResource extends Resource
     {
         return $table
             ->headerActions([
-                Action::make('Tüm Kategorilerin Ürünlerini Getir')
+                Action::make('Tüm Kategorileri Getir')
                     ->action(function () {
                         TrendyolCategory::all()->each->fetchProducts();
                     })

@@ -32,9 +32,15 @@ class FetchTrendyolProductJob implements ShouldQueue
      */
     public function handle(): void
     {
-        $categoryPath = str($this->category->url)->explode('/')->last();
+        $categoryPath = str($this->category->url)->replace("https://www.trendyol.com/", "");
 
-        $response = Http::get("https://public.trendyol.com/discovery-web-searchgw-service/v2/api/filter/sr/{$categoryPath}?pi=1&sst=BEST_SELLER");
+        if ($categoryPath->contains("?")) {
+            $categoryPath = $categoryPath->append("&sst=BEST_SELLER&pi=1");
+        } else {
+            $categoryPath = $categoryPath->append("?sst=BEST_SELLER&pi=1");
+        }
+
+        $response = Http::get("https://public.trendyol.com/discovery-web-searchgw-service/v2/api/filter/{$categoryPath}");
 
         foreach ($response->collect('result.products') as $productOrder => $product) {
 

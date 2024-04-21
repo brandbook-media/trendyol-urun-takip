@@ -5,10 +5,14 @@
     <div class="overflow-hidden rounded-lg bg-white shadow">
         <div class="relative">
             <img class="h-40 w-full object-cover" src="{{ $record->image_url }}" alt="{{ $record->name }}" />
-
         </div>
         <div class="p-4">
-            <h3 class="text-xs font-semibold" style="color:#000">{{ $record->name }}</h3>
+            <h3 class="text-xs" style="color:#000">
+                <span class="text-sm font-semibold">
+                    {{ $record->brand }}
+                </span>
+                {{ $record->name }}
+            </h3>
             <div class="mt-2 flex items-center">
                 <svg class="h-5 w-5 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <!-- Yıldız SVG içeriği -->

@@ -2,7 +2,13 @@
         $record = $getRecord();
     @endphp
 
-    <div class="overflow-hidden rounded-lg bg-white shadow">
+    <div class="overflow-hidden rounded-lg bg-white shadow" style="position: relative">
+        @if (strtolower($record->brand) == 'wefood')
+            <span style="position: absolute; top:0;right:0; background-color:rgb(222, 64, 64);z-index:999;width:100%"
+                class="p-1 text-center">
+                Wefood Ürünü
+            </span>
+        @endif
         <div class="relative">
             <img class="h-40 w-full object-cover" src="{{ $record->image_url }}" alt="{{ $record->name }}" />
         </div>

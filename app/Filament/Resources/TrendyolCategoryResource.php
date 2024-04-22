@@ -51,8 +51,7 @@ class TrendyolCategoryResource extends Resource
                         TrendyolCategory::all()->each->fetchProducts();
                     })
                     ->requiresConfirmation()
-                    ->color(Color::Blue)
-                    ,
+                    ->color(Color::Blue),
             ])
             ->columns([
                 Tables\Columns\TextColumn::make('name')
@@ -81,6 +80,12 @@ class TrendyolCategoryResource extends Resource
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('fetch')
+                    ->label('Kategoriye Git')
+                    ->color(Color::Green)
+                    ->button()
+                    ->url(fn (TrendyolCategory $record) => $record->url)
+                    ->openUrlInNewTab(),
                 Tables\Actions\Action::make('fetch')
                     ->label('Ürünlerin Sonuçlarını Getir')
                     ->color(Color::Blue)

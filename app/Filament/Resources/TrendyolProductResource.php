@@ -4,12 +4,17 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\TrendyolProductResource\Pages;
 use App\Filament\Resources\TrendyolProductResource\RelationManagers;
+use App\Models\TrendyolCategory;
 use App\Models\TrendyolProduct;
 use Filament\Forms;
+use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\Layout\Stack;
+use Filament\Tables\Filters\Filter;
+use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Grouping\Group;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -55,6 +60,16 @@ class TrendyolProductResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->groups([
+                Group::make('category')
+                    ->label('Kategori'),
+                Group::make('price')
+                    ->label('Fiyat'),
+                Group::make('created_at')
+                    ->label('Oluşturulma Tarihi'),
+                Group::make('brand')
+                    ->label('Marka'),
+            ])
             ->columns([
                 Stack::make([
                     Tables\Columns\TextColumn::make('histories.comment_count')
@@ -87,16 +102,40 @@ class TrendyolProductResource extends Resource
             ])
             ->contentGrid([
                 'md' => 3,
-                'xl' => 6,
-                '2xl' => 6,
+                'xl' => 4,
+                '2xl' => 4,
             ])
             ->filters([
-                //
+                SelectFilter::make('category')
+                    ->options(
+                        TrendyolProduct::query()
+                            ->select('category')
+                            ->distinct()
+                            ->get()
+                            ->pluck('category')
+                            ->mapWithKeys(fn ($category) => [$category => $category])
+                            ->toArray()
+                    )
+                    ->label('Kategori'),
+                Filter::make('created_at')
+                    ->form([
+                        DatePicker::make('created_from'),
+                        DatePicker::make('created_until'),
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query
+                            ->when(
+                                $data['created_from'],
+                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date),
+                            )
+                            ->when(
+                                $data['created_until'],
+                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
+                            );
+                    })
             ])
 
-            ->bulkActions([
-
-            ]);
+            ->bulkActions([]);
     }
 
     public static function getRelations(): array

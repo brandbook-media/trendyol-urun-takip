@@ -7,7 +7,7 @@ use Filament\Widgets\ChartWidget;
 
 class ProductCommentWidget extends ChartWidget
 {
-    protected static ?string $heading = 'Yorumlar';
+    protected static ?string $heading = 'Değerlendirme';
     protected static ?string $maxHeight = '300px';
     protected static ?string $pollingInterval = null;
     protected $histories;
@@ -19,7 +19,7 @@ class ProductCommentWidget extends ChartWidget
         return [
             'datasets' => [
                 [
-                    'label' => 'Yorumlar',
+                    'label' => 'Değerlendirme',
                     'data' => $this->histories?->map(fn ($history) => $history->comment_count)->toArray(),
                 ],
             ],

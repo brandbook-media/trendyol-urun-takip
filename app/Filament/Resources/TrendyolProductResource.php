@@ -72,9 +72,6 @@ class TrendyolProductResource extends Resource
             ])
             ->columns([
                 Stack::make([
-                    Tables\Columns\TextColumn::make('histories.comment_count')
-                        ->label('Yorum Sayısı')
-                        ->sortable(),
                     Tables\Columns\TextColumn::make('name')
                         ->searchable(),
                     Tables\Columns\TextColumn::make('description')

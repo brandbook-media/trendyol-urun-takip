@@ -60,16 +60,17 @@ class TrendyolProductResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->groups([
-                Group::make('category')
-                    ->label('Kategori'),
-                Group::make('price')
-                    ->label('Fiyat'),
-                Group::make('created_at')
-                    ->label('Oluşturulma Tarihi'),
-                Group::make('brand')
-                    ->label('Marka'),
-            ])
+
+            // ->groups([
+            //     Group::make('category')
+            //         ->label('Kategori'),
+            //     Group::make('price')
+            //         ->label('Fiyat'),
+            //     Group::make('created_at')
+            //         ->label('Oluşturulma Tarihi'),
+            //     Group::make('brand')
+            //         ->label('Marka'),
+            // ])
             ->columns([
                 Stack::make([
                     Tables\Columns\TextColumn::make('name')
